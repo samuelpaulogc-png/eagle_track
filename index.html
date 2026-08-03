@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Comercial — Gestão de Tráfego Pago | Eagle Track</title>
+  <meta name="description" content="Esta proposta apresenta uma estratégia de aquisição de clientes por meio de mídia paga, desenvolvida para ampliar a geração de oportunidades comerciais da Eagle Track.">
+  
+  <!-- Fonts Google (Sora, Inter, Space Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — Tráfego ON (Design System)
+       ============================================================ */
+    :root {
+      /* Cores Primárias (Paleta Eagle Track) */
+      --eagle-blue:   #00B5FF;   /* azul-assinatura Eagle Track (electric cyan-blue) */
+      --green:        #00B5FF;   /* alias mantido para compatibilidade total */
+      --green-600:    #0094D4;   /* hover / pressed */
+      --green-700:    #0077B6;   /* texto azul sobre fundo claro */
+      --forest:       #001F35;   /* azul oceano profundo — apoio, gradientes */
+
+      /* Cores Neutras */
+      --black:        #000000;   /* fundo base */
+      --surface:      #0A0A0A;   /* cards sobre preto */
+      --surface-2:    #141414;   /* inputs / camadas elevadas */
+      --line:         #1E1E1E;   /* divisórias e bordas neutras */
+      --white:        #FFFFFF;   /* texto principal sobre escuro */
+      --muted:        #9BB4C4;   /* texto secundário sobre escuro */
+      --ink:          #0A0A0A;   /* texto sobre azul/claro */
+
+      /* Efeitos */
+      --glow:         0 0 32px rgba(0, 181, 255, .30);
+      --glow-strong:  0 0 0 1px var(--green), 0 0 40px rgba(0, 181, 255, .35);
+      --ring:         0 0 0 3px rgba(0, 181, 255, .35);
+
+      /* Raio de borda */
+      --r-pill: 999px;   /* botões, chips, toggle */
+      --r-lg:   24px;    /* cards / containers grandes */
+      --r-md:   16px;    /* cards menores, inputs */
+      --r-sm:   10px;    /* tags, badges */
+
+      /* Tipografia */
+      --font-display: 'Sora', system-ui, sans-serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --font-mono:    'Space Mono', ui-monospace, monospace;
+
+      /* Escala de espaçamento (base 8) */
+      --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+      --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+
+      /* Transitions */
+      --transition-fast: 0.18s ease;
+      --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--green);
+      color: var(--ink);
+    }
+
+    /* Acessibilidade: Link para pular ao conteúdo */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--green);
+      color: var(--ink);
+      padding: 12px 20px;
+      border-radius: var(--r-pill);
+      font-family: var(--font-display);
+      font-weight: 700;
+      z-index: 9999;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus {
+      top: 16px;
+      outline: none;
+      box-shadow: var(--ring);
+    }
+
+    /* Containers */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 var(--s-5);
+    }
+
+    /* Eyebrow Utilitário Mono */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: var(--green);
+      border-radius: 2px;
+    }
+
+    /* Header Nav */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.3s ease;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .brand-logo .logo-badge {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .brand-logo .logo-badge span {
+      color: var(--green);
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      color: var(--muted);
+      background: var(--surface);
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: var(--s-5);
+      list-style: none;
+    }
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--transition-fast);
+      padding: 8px 4px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--white);
+    }
+    .nav-link.active {
+      color: var(--green);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+    }
+
+    /* Mobile Menu Button */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--white);
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-toggle:focus-visible {
+      outline: none;
+      box-shadow: var(--ring);
+    }
+    .menu-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* Toggle - Elemento Assinatura */
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      width: 74px;
+      height: 38px;
+      border-radius: var(--r-pill);
+      background: var(--green);
+      position: relative;
+      box-shadow: var(--glow);
+      cursor: pointer;
+      border: none;
+      transition: var(--transition-fast);
+      min-width: 74px;
+      min-height: 38px;
+    }
+    .toggle:focus-visible {
+      outline: none;
+      box-shadow: var(--ring);
+    }
+    .toggle .knob {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      position: absolute;
+      right: 4px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-weight: bold;
+      transition: var(--transition-fast);
+    }
+    .toggle.is-active .knob {
+      right: calc(100% - 34px);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(85vh - 72px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: var(--s-8) 0 var(--s-9);
+      width: 100%;
+      /* Fundo desktop: imagem como fallback (poster) atrás do vídeo */
+      background:
+        url('Hero_Desktop.png') center right / cover no-repeat,
+        var(--black);
+    }
+    /* Camadas de vídeo do hero */
+    .hero-media,
+    .hero-media-mobile {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-media { object-position: center right; }
+    .hero-media-mobile { display: none; object-position: center bottom; }
+    /* Overlay do gradiente por cima do vídeo, abaixo do texto */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(0,0,0,.90) 0%, rgba(0,0,0,.70) 38%, rgba(0,0,0,.25) 62%, rgba(0,0,0,0) 85%);
+    }
+    /* Acessibilidade: quem pede menos movimento vê a imagem estática */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-media { display: none; }
+    }
+    .hero .wrap {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(36px, 5.5vw, 68px);
+      line-height: 1.06;
+      letter-spacing: -.02em;
+      color: var(--white);
+      margin-top: 0;
+    }
+    .hero h1 .highlight {
+      color: var(--green);
+      display: block;
+    }
+    .hero p.sub {
+      margin-top: var(--s-5);
+      max-width: 680px;
+      color: #D5E4F0;
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .hero-actions {
+      margin-top: var(--s-7);
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 14px 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition-fast);
+      text-decoration: none;
+      min-height: 48px;
+      min-width: 44px;
+      line-height: 1.2;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: var(--ink);
+      box-shadow: var(--glow);
+    }
+    .btn-primary:hover {
+      background: var(--green-600);
+      transform: translateY(-2px);
+      box-shadow: var(--glow-strong);
+    }
+    .btn-primary .arrow {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .btn-primary:hover .arrow {
+      transform: translateX(3px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid var(--green);
+      padding: 12.5px 24px;
+    }
+    .btn-outline:hover {
+      background: rgba(0, 181, 255, .08);
+      transform: translateY(-1px);
+    }
+    .btn:focus-visible {
+      outline: none;
+      box-shadow: var(--ring);
+    }
+
+    /* Sections */
+    section {
+      padding: var(--s-9) 0;
+      border-top: 1px solid var(--line);
+      position: relative;
+    }
+    .section-head {
+      margin-bottom: var(--s-7);
+    }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -.02em;
+      margin-top: var(--s-3);
+      color: var(--white);
+    }
+    .section-head h2 b {
+      color: var(--green);
+      font-weight: 700;
+    }
+    .section-desc {
+      margin-top: var(--s-4);
+      max-width: 760px;
+      font-size: 18px;
+      color: #D5E4F0;
+      line-height: 1.6;
+    }
+
+    /* Feature full-bleed: imagem sangra até as bordas da seção (sem moldura/cartão) */
+    .feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      min-height: 460px;
+      margin-top: calc(var(--s-9) * -1);   /* encosta no topo da seção */
+      margin-bottom: var(--s-8);
+    }
+    .feature__media {
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+    }
+    .feature__media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .feature__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .feature__body .section-head { margin-bottom: 0; }
+    /* imagem à direita → texto à esquerda, alinhado à coluna do wrap */
+    .feature--media-right .feature__body {
+      padding: var(--s-8) var(--s-6) var(--s-8) max(var(--s-5), calc((100vw - 1080px) / 2 + var(--s-5)));
+    }
+    /* imagem à esquerda → texto à direita, alinhado à coluna do wrap */
+    .feature--media-left .feature__media { order: 1; }
+    .feature--media-left .feature__body {
+      order: 2;
+      padding: var(--s-8) max(var(--s-5), calc((100vw - 1080px) / 2 + var(--s-5))) var(--s-8) var(--s-6);
+    }
+    @media (max-width: 900px) {
+      .feature {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .feature__body {
+        order: 0 !important;
+        padding: var(--s-7) var(--s-5) var(--s-6) !important;
+      }
+      .feature__media {
+        order: 1 !important;
+        min-height: 220px;
+      }
+    }
+
+    /* Faixa da frota com efeito "expandir no scroll" (pin & scale) */
+    .expand-band {
+      position: relative;
+      margin-top: var(--s-8);
+      margin-bottom: calc(var(--s-9) * -1);   /* encosta na base da seção */
+      height: 200vh;                          /* trilha de scroll p/ o efeito */
+    }
+    .expand-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;                             /* abaixo da navbar (z-index 100) */
+    }
+    .expand-frame {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      border-radius: 22px;
+      transform: scale(0.62);                 /* estado inicial (contido); JS assume daqui */
+      will-change: transform;
+    }
+    .expand-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Mobile: efeito desligado → imagem estática full-width */
+    @media (max-width: 900px) {
+      .expand-band { height: auto; margin-top: var(--s-7); }
+      .expand-sticky { position: static; height: auto; }
+      .expand-frame { transform: none; width: 100%; height: 240px; border-radius: 0; }
+    }
+    /* Reduced motion: também estático full-width, sem pin/scale */
+    @media (prefers-reduced-motion: reduce) {
+      .expand-band { height: auto; }
+      .expand-sticky { position: static; height: auto; }
+      .expand-frame { transform: none !important; width: 100%; height: 60vh; border-radius: 0; }
+    }
+
+    /* Accordion Components (Estratégia de Aquisição) */
+    .accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+    }
+    .accordion-item {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: var(--transition-fast);
+    }
+    .accordion-item:hover, .accordion-item.open {
+      border-color: var(--green);
+      box-shadow: var(--glow);
+    }
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--s-5) var(--s-6);
+      cursor: pointer;
+      user-select: none;
+      min-height: 72px;
+    }
+    .accordion-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      flex-wrap: wrap;
+    }
+    .accordion-num {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.05em;
+    }
+    .accordion-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--white);
+    }
+    .accordion-right {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      flex-shrink: 0;
+    }
+    .exp-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: rgba(0, 181, 255, 0.05);
+      white-space: nowrap;
+    }
+    .accordion-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--green);
+      background: var(--surface-2);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .accordion-item.open .accordion-icon {
+      background: rgba(0, 181, 255, 0.15);
+      border-color: var(--green);
+    }
+    .accordion-body {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, padding 0.3s ease;
+      padding: 0 var(--s-6);
+    }
+    .accordion-item.open .accordion-body {
+      max-height: 1200px;
+      opacity: 1;
+      padding: 0 var(--s-6) var(--s-6);
+      border-top: 1px solid var(--line);
+    }
+    .accordion-body-inner {
+      padding-top: var(--s-5);
+    }
+    .accordion-body p {
+      font-size: 16px;
+      color: #D5E4F0;
+      line-height: 1.65;
+      margin-bottom: var(--s-4);
+    }
+    .accordion-subhead {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--white);
+      margin: var(--s-5) 0 var(--s-4);
+    }
+    .accordion-grid-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px 24px;
+      list-style: none;
+    }
+    .accordion-grid-list li {
+      font-size: 15px;
+      color: #D5E4F0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .accordion-grid-list li::before {
+      content: "—";
+      color: var(--green);
+      font-weight: bold;
+      font-family: var(--font-mono);
+    }
+
+    /* Channel Cards Grid */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--s-5);
+    }
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: var(--s-6);
+      transition: var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .card:hover {
+      border-color: var(--green);
+      box-shadow: var(--glow);
+      transform: translateY(-4px);
+    }
+    .card .ico {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-sm);
+      display: grid;
+      place-items: center;
+      border: 1.5px solid var(--green);
+      color: var(--green);
+      margin-bottom: var(--s-4);
+      font-size: 20px;
+      font-family: var(--font-mono);
+      background: rgba(0, 181, 255, 0.04);
+    }
+    .card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--green);
+      margin-bottom: var(--s-3);
+    }
+    .card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: var(--s-3);
+    }
+    .card p:last-of-type {
+      margin-bottom: var(--s-4);
+    }
+    .card-divider {
+      height: 1px;
+      background: var(--line);
+      margin: var(--s-4) 0;
+    }
+    .card-subhead {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 0;
+    }
+    .feature-list li {
+      font-size: 14px;
+      color: #D5E4F0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .feature-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 700;
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    /* Scope Grid */
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--s-4);
+      margin-top: var(--s-6);
+    }
+    .scope-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: var(--s-5);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--s-4);
+    }
+    .scope-item:hover {
+      border-color: var(--green);
+      background: var(--surface-2);
+    }
+    .scope-number {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--green);
+      font-weight: bold;
+      background: rgba(0, 181, 255, 0.08);
+      border: 1px solid rgba(0, 181, 255, 0.2);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .scope-text {
+      font-size: 15px;
+      color: #D5E4F0;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Escopo: split foto (estrategista) + card "O serviço inclui" */
+    .scope-split {
+      display: grid;
+      grid-template-columns: 0.72fr 1fr;   /* foto ~42% · card ~58% */
+      gap: var(--s-6);
+      align-items: stretch;
+    }
+    .scope-photo {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .scope-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .scope-split .card { margin: 0; }
+    /* dentro do split (desktop), força 2 colunas pra encurtar o card e casar com a foto */
+    @media (min-width: 901px) {
+      .scope-split .scope-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      /* empilha: foto em cima, card embaixo */
+      .scope-split { grid-template-columns: 1fr; gap: var(--s-5); }
+      .scope-photo { height: 280px; }
+    }
+
+    /* Investment Section */
+    .investment-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-7);
+      align-items: center;
+    }
+    .price-card {
+      background: var(--surface);
+      border: 1.5px solid var(--green);
+      border-radius: var(--r-lg);
+      padding: var(--s-7);
+      box-shadow: var(--glow);
+      position: relative;
+      overflow: hidden;
+    }
+    .price-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(0, 181, 255,0.15) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+    }
+    .price-card .tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: inline-block;
+    }
+    .price-card .val {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(42px, 5vw, 60px);
+      color: var(--white);
+      margin: var(--s-2) 0 var(--s-3);
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .investment-info h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--white);
+      margin-bottom: var(--s-3);
+    }
+    .investment-info p {
+      font-size: 17px;
+      color: #D5E4F0;
+      line-height: 1.65;
+    }
+
+    /* Next Steps Section */
+    .steps-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--s-5);
+      margin-top: var(--s-7);
+      position: relative;
+    }
+    .step-card {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: var(--s-5);
+      position: relative;
+      transition: var(--transition-fast);
+    }
+    .step-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 1.5px solid var(--green);
+      display: grid;
+      place-items: center;
+      margin-bottom: var(--s-4);
+      box-shadow: var(--glow);
+    }
+    .step-text {
+      font-size: 15px;
+      color: var(--white);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    /* Seção Próximos Passos: split full-bleed — imagem sangrando em metade da largura */
+    .passos-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      padding: 0;                 /* imagem sangra topo/base/lateral, sem espaçamento */
+    }
+    .passos-content {
+      /* alinha o texto à mesma calha esquerda das demais seções (container 1080) */
+      padding: var(--s-9) var(--s-7) var(--s-9)
+               max(var(--s-5), calc((100vw - 1080px) / 2 + var(--s-5)));
+    }
+    .passos-media {
+      position: relative;
+      overflow: hidden;           /* preenche a metade e sangra na borda */
+    }
+    .passos-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .passos-split .steps-timeline {
+      grid-template-columns: 1fr 1fr;   /* 2x2 na metade */
+    }
+    @media (max-width: 900px) {
+      .passos-split { grid-template-columns: 1fr; }
+      .passos-content { padding: var(--s-7) var(--s-5) var(--s-6); }
+      .passos-media img { position: static; height: auto; }   /* imagem inteira full-width */
+      .passos-split .steps-timeline { grid-template-columns: 1fr; }
+    }
+
+    /* Footer / Signature Block */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: var(--s-8) 0 var(--s-7);
+      background: var(--black);
+      color: var(--muted);
+    }
+    .footer-card {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: var(--s-6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--s-5);
+      flex-wrap: wrap;
+    }
+    .author-info h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--white);
+    }
+    .author-info p.role {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--green);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .author-credentials {
+      display: flex;
+      gap: var(--s-3);
+      flex-wrap: wrap;
+    }
+    .chip-pill {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .05em;
+      border: 1.5px solid var(--green);
+      border-radius: var(--r-pill);
+      padding: 8px 16px;
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 181, 255, 0.04);
+    }
+    .footer-bottom {
+      margin-top: var(--s-6);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #5F6F7A;
+    }
+
+    /* Animations & Scroll Effects */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .investment-wrap {
+        grid-template-columns: 1fr;
+        gap: var(--s-6);
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: var(--s-6);
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .accordion-header {
+        padding: var(--s-4);
+        min-height: 60px;
+      }
+      .accordion-title {
+        font-size: 17px;
+      }
+      .accordion-num {
+        font-size: 14px;
+      }
+      .exp-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+        letter-spacing: 0.08em;
+      }
+      .accordion-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+      .accordion-body {
+        padding: 0 var(--s-4);
+      }
+      .accordion-item.open .accordion-body {
+        padding: 0 var(--s-4) var(--s-5);
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --s-9: 64px;
+        --s-8: 48px;
+        --s-7: 36px;
+      }
+      .nav-menu {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        padding: var(--s-6) var(--s-5);
+        gap: var(--s-4);
+        display: none;
+      }
+      .nav-menu.open {
+        display: flex;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .footer-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero {
+        min-height: 88vh;
+        justify-content: flex-start;
+        padding: var(--s-7) 0 var(--s-8);
+        /* Fundo mobile: faixa estática ancorada embaixo (fallback = imagem perfeita) */
+        background:
+          url('Hero_Mobile_band.png') bottom center / 128% auto no-repeat,
+          var(--black);
+      }
+      /* No mobile usa o vídeo em faixa; esconde o vídeo desktop 16:9 */
+      .hero-media { display: none; }
+      /* Vídeo posicionado como faixa embaixo (mesmo enquadramento da imagem) */
+      .hero-media-mobile {
+        display: block;
+        top: auto;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 128%;
+        height: auto;
+        object-fit: fill;
+      }
+      /* Overlay vertical: preto no topo (texto) + revela a cena embaixo */
+      .hero::after {
+        display: block;
+        background: linear-gradient(180deg,
+          #000 0%,
+          #000 42%,
+          rgba(0,0,0,.9) 50%,
+          rgba(0,0,0,.35) 58%,
+          rgba(0,0,0,0) 68%,
+          rgba(0,0,0,0) 90%,
+          rgba(0,0,0,.45) 100%);
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+
+    /* Accessibility High Contrast / Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .fade-in-up {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Skip to content link for screen readers -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Header / Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="wrap nav-inner">
+      <a href="#" class="brand-logo" aria-label="Proposta Comercial - Página Inicial">
+        <span class="logo-badge">Proposta<span>Comercial</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+      <ul class="nav-menu" id="navMenu" role="menubar">
+        <li role="none"><a href="#estrategia" class="nav-link" role="menuitem">Estratégia</a></li>
+        <li role="none"><a href="#escopo" class="nav-link" role="menuitem">Escopo</a></li>
+        <li role="none"><a href="#investimento" class="nav-link" role="menuitem">Investimento</a></li>
+        <li role="none"><a href="#passos" class="nav-link" role="menuitem">Próximos Passos</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <video class="hero-media" autoplay muted loop playsinline preload="auto" poster="Hero_Desktop.png" aria-hidden="true">
+      <source src="Hero_Desktop.mp4" type="video/mp4">
+    </video>
+    <video class="hero-media-mobile" autoplay muted loop playsinline preload="auto" poster="Hero_Mobile_band.png" aria-hidden="true">
+      <source src="Hero_Mobile_band.mp4" type="video/mp4">
+    </video>
+    <div class="wrap">
+      <h1 class="fade-in-up">
+        Gestão de<span class="highlight">Tráfego Pago</span>
+      </h1>
+      <p class="sub fade-in-up">
+        Esta proposta apresenta uma estratégia de aquisição de clientes por meio de mídia paga, desenvolvida para ampliar a geração de oportunidades comerciais da Eagle Track.
+      </p>
+      <div class="hero-actions fade-in-up">
+        <a href="#estrategia" class="btn btn-primary" aria-label="Conhecer a proposta">
+          CONHECER A PROPOSTA <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Areas -->
+  <main id="main-content">
+
+    <!-- SEÇÃO 1: ESTRATÉGIA DE AQUISIÇÃO -->
+    <section id="estrategia" aria-labelledby="heading-estrategia">
+      <div class="wrap">
+        <div class="section-head fade-in-up">
+          <h2 id="heading-estrategia">Estratégia de <b>Aquisição</b></h2>
+          <p class="section-desc">
+            A estratégia será desenvolvida em três frentes complementares, permitindo atuar em diferentes momentos da jornada de compra.
+          </p>
+        </div>
+
+        <div class="accordion-list">
+          
+          <!-- Accordion Item 1: Google Ads -->
+          <div class="accordion-item fade-in-up">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-title-wrap">
+                <span class="accordion-num">3.1</span>
+                <h3 class="accordion-title">Google Ads</h3>
+              </div>
+              <div class="accordion-right">
+                <div class="accordion-icon">+</div>
+              </div>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>
+                  O Google Ads será o principal canal da operação, captando empresas que já demonstram intenção de compra ao pesquisar por soluções como gestão de frotas, rastreamento, telemetria, controle de jornada e logística.
+                </p>
+                <p>
+                  As campanhas serão estruturadas para direcionar esse público a páginas com foco em conversão, aumentando o número de solicitações de demonstração e oportunidades para o time comercial.
+                </p>
+                <h4 class="accordion-subhead">O que será realizado</h4>
+                <ul class="accordion-grid-list">
+                  <li>Estruturação da conta;</li>
+                  <li>Pesquisa de palavras-chave;</li>
+                  <li>Organização das campanhas por intenção de busca;</li>
+                  <li>Criação de anúncios;</li>
+                  <li>Configuração de conversões;</li>
+                  <li>Monitoramento e otimizações contínuas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 2: Meta Ads -->
+          <div class="accordion-item fade-in-up">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-title-wrap">
+                <span class="accordion-num">3.2</span>
+                <h3 class="accordion-title">Meta Ads</h3>
+              </div>
+              <div class="accordion-right">
+                <div class="accordion-icon">+</div>
+              </div>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>
+                  O Meta Ads será utilizado para fortalecer o posicionamento da Eagle Track, ampliar o alcance da marca e gerar novas oportunidades de negócio.
+                </p>
+                <p>
+                  Além da prospecção de novos clientes, as campanhas também serão utilizadas para remarketing, mantendo a marca presente durante o processo de decisão de compra.
+                </p>
+                <h4 class="accordion-subhead">O que será realizado</h4>
+                <ul class="accordion-grid-list">
+                  <li>Campanhas institucionais;</li>
+                  <li>Campanhas para geração de leads;</li>
+                  <li>Remarketing;</li>
+                  <li>Testes de criativos;</li>
+                  <li>Testes de segmentação;</li>
+                  <li>Otimizações contínuas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 3: LinkedIn Ads -->
+          <div class="accordion-item fade-in-up">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-title-wrap">
+                <span class="accordion-num">3.3</span>
+                <h3 class="accordion-title">LinkedIn Ads</h3>
+                <span class="exp-badge">EXPANSÃO</span>
+              </div>
+              <div class="accordion-right">
+                <div class="accordion-icon">+</div>
+              </div>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>
+                  Após consolidarmos as campanhas em Google e Meta, iniciaremos a expansão para o LinkedIn Ads.
+                </p>
+                <p>
+                  O objetivo será alcançar profissionais responsáveis pela tomada de decisão, como diretores, gestores de frota, gerentes de logística e executivos de operações, ampliando a geração de oportunidades qualificadas no mercado B2B.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="expand-band">
+        <div class="expand-sticky">
+          <div class="expand-frame">
+            <img src="img/frota-rodovia.webp" alt="Frota de caminhões em rodovia ao entardecer com rastreamento por telemetria" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: ESCOPO DA GESTÃO -->
+    <section id="escopo" aria-labelledby="heading-escopo">
+      <div class="wrap">
+        <div class="section-head fade-in-up">
+          <h2 id="heading-escopo">Escopo da <b>Gestão</b></h2>
+          <p class="section-desc">
+            A gestão contempla todas as etapas necessárias para o planejamento, implementação e otimização contínua das campanhas, garantindo que a estratégia permaneça alinhada aos objetivos comerciais da Eagle Track.
+          </p>
+        </div>
+
+        <div class="scope-split fade-in-up">
+        <div class="scope-photo">
+          <img src="img/escopo-estrategista.webp" alt="Estrategista de marketing analisando campanhas à noite, iluminado pelas telas" loading="lazy" decoding="async">
+        </div>
+        <div class="card" style="background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--r-lg); padding: var(--s-6);">
+          <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--green); margin-bottom: var(--s-5);">
+            O serviço inclui:
+          </h3>
+          
+          <div class="scope-grid">
+            <div class="scope-item">
+              <span class="scope-number">01</span>
+              <span class="scope-text">Planejamento estratégico das campanhas;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">02</span>
+              <span class="scope-text">Pesquisa de mercado, concorrência e público-alvo;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">03</span>
+              <span class="scope-text">Configuração das plataformas e do acompanhamento de conversões;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">04</span>
+              <span class="scope-text">Criação e estruturação das campanhas;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">05</span>
+              <span class="scope-text">Desenvolvimento de anúncios e segmentações;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">06</span>
+              <span class="scope-text">Monitoramento e otimizações contínuas;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">07</span>
+              <span class="scope-text">Testes A/B para melhoria de desempenho;</span>
+            </div>
+            <div class="scope-item">
+              <span class="scope-number">08</span>
+              <span class="scope-text">Relatórios e até 2 reuniões semanais de acompanhamento.</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: INVESTIMENTO -->
+    <section id="investimento" aria-labelledby="heading-investimento">
+      <div class="wrap">
+        <div class="section-head fade-in-up">
+          <h2 id="heading-investimento">Investi<b>mento</b></h2>
+        </div>
+
+        <div class="investment-wrap">
+          
+          <!-- Pricing Card -->
+          <div class="price-card fade-in-up">
+            <span class="tag">Gestão Mensal</span>
+            <div class="val">R$ 2.000,00</div>
+            <a href="#passos" class="btn btn-primary" style="width: 100%; margin-top: var(--s-4);" aria-label="Conhecer a proposta">
+              CONHECER A PROPOSTA <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <!-- Investment Media Info -->
+          <div class="investment-info fade-in-up">
+            <h3>Investimento em mídia</h3>
+            <p>
+              O investimento destinado às plataformas será definido em conjunto, considerando os objetivos comerciais da Eagle Track e o potencial de crescimento da operação.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: PRÓXIMOS PASSOS -->
+    <section id="passos" class="passos-split" aria-labelledby="heading-passos">
+      <div class="passos-content">
+        <div class="section-head fade-in-up">
+          <h2 id="heading-passos">Próximos <b>Passos</b></h2>
+          <p class="section-desc">
+            Após a aprovação da proposta, seguiremos as seguintes etapas:
+          </p>
+        </div>
+
+        <div class="steps-timeline">
+          <div class="step-card fade-in-up">
+            <div class="step-badge">1</div>
+            <div class="step-text">Reunião de alinhamento e onboarding;</div>
+          </div>
+
+          <div class="step-card fade-in-up">
+            <div class="step-badge">2</div>
+            <div class="step-text">Configuração das contas e ferramentas de mensuração;</div>
+          </div>
+
+          <div class="step-card fade-in-up">
+            <div class="step-badge">3</div>
+            <div class="step-text">Estruturação e publicação das campanhas;</div>
+          </div>
+
+          <div class="step-card fade-in-up">
+            <div class="step-badge">4</div>
+            <div class="step-text">Início da gestão e acompanhamento dos resultados.</div>
+          </div>
+        </div>
+      </div>
+      <div class="passos-media fade-in-up">
+        <img src="img/passos-xadrez.webp" alt="Mão movendo uma peça de xadrez em tabuleiro escuro com brilho ciano" loading="lazy" decoding="async">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer / Author Section -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-card fade-in-up">
+        <div class="author-info">
+          <h4>Samuel Paulo</h4>
+          <p class="role">Estrategista de Marketing</p>
+        </div>
+        <div class="author-credentials">
+          <span class="chip-pill">+ 5 anos com gestão de tráfego</span>
+          <span class="chip-pill">+ 450 mil gerenciados em anúncios</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        Proposta Comercial — Eagle Track · Gestão de Tráfego Pago
+      </div>
+    </div>
+  </footer>
+
+  <!-- Inline JavaScript Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hero: garante o play dos vídeos (autoplay + fallback no 1º gesto, p/ iOS em Baixo Consumo)
+      const heroVideos = document.querySelectorAll('.hero-media, .hero-media-mobile');
+      const tryPlayHero = () => heroVideos.forEach(v => {
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {});
+      });
+      tryPlayHero();
+      const onFirstGesture = () => {
+        tryPlayHero();
+        document.removeEventListener('touchstart', onFirstGesture);
+        document.removeEventListener('click', onFirstGesture);
+      };
+      document.addEventListener('touchstart', onFirstGesture, { passive: true });
+      document.addEventListener('click', onFirstGesture);
+
+      // Toggle Switch Interactive Logic
+      const modeToggle = document.getElementById('modeToggle');
+      if (modeToggle) {
+        modeToggle.addEventListener('click', () => {
+          modeToggle.classList.toggle('is-active');
+        });
+      }
+
+      // Mobile Navigation Drawer Toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const navMenu = document.getElementById('navMenu');
+
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navMenu.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // Close menu on link click
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Accordion Interactivity for Estratégia de Aquisição
+      const accordionItems = document.querySelectorAll('.accordion-item');
+      accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        const icon = item.querySelector('.accordion-icon');
+
+        if (header) {
+          header.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            
+            accordionItems.forEach(other => {
+              other.classList.remove('open');
+              const otherHeader = other.querySelector('.accordion-header');
+              const otherIcon = other.querySelector('.accordion-icon');
+              if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+              if (otherIcon) otherIcon.textContent = '+';
+            });
+
+            if (!isOpen) {
+              item.classList.add('open');
+              header.setAttribute('aria-expanded', 'true');
+              if (icon) icon.textContent = '×';
+            }
+          });
+
+          header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              header.click();
+            }
+          });
+        }
+      });
+
+      // Intersection Observer for Active Nav Links & Scroll Animations
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach(section => sectionObserver.observe(section));
+
+      // Fade-in reveal effect on scroll
+      const fadeElements = document.querySelectorAll('.fade-in-up');
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      fadeElements.forEach(el => fadeObserver.observe(el));
+
+      // Faixa da frota: expandir no scroll (pin & scale) — só desktop, respeita reduced-motion
+      const expBand  = document.querySelector('.expand-band');
+      const expFrame = expBand && expBand.querySelector('.expand-frame');
+      if (expBand && expFrame) {
+        const mqReduce  = matchMedia('(prefers-reduced-motion: reduce)');
+        const mqDesktop = matchMedia('(min-width: 901px)');
+        const START = 0.62;                          // escala inicial (contida)
+        const ease  = p => 1 - Math.pow(1 - p, 3);   // easeOutCubic
+        let ticking = false;
+        const update = () => {
+          ticking = false;
+          if (!mqDesktop.matches || mqReduce.matches) {
+            expFrame.style.transform = '';
+            expFrame.style.borderRadius = '';
+            return;
+          }
+          const rect  = expBand.getBoundingClientRect();
+          const total = rect.height - window.innerHeight;   // distância pinada
+          const p     = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0;
+          const s     = START + (1 - START) * ease(p);
+          expFrame.style.transform    = `scale(${s})`;
+          expFrame.style.borderRadius = `${22 * (1 - p)}px`;
+        };
+        const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        update();
+      }
+    });
+  </script>
+</body>
+</html>
